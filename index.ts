@@ -34,15 +34,36 @@ app.use(express.json());
 // });
 
 // Nationality nepal or indina
-app.get("/users", async (req, res) => {
-  const users = await prisma.user.findMany({
+// app.get("/users", async (req, res) => {
+//   const users = await prisma.user.findMany({
+//     where: {
+//       nationality: {
+//         in: ["Nepali", "Indian"],
+//       },
+//     },
+//   });
+//   res.json(users);
+// });
+
+app.put("/users", async (req, res) => {
+  const updatedUser = await prisma.user.update({
     where: {
-      nationality: {
-        in: ["Nepali", "Indian"],
-      },
+      email: "aayush@example.com",
+    },
+    data: {
+      age: 55,
     },
   });
-  res.json(users);
+  res.json(updatedUser);
+});
+
+app.delete("/users", async (req, res) => {
+  const deletedUser = await prisma.user.delete({
+    where: {
+      email: "aayush@example.com",
+    },
+  });
+  res.json(deletedUser);
 });
 
 app.listen(3000, () => {
